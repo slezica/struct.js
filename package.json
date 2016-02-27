@@ -1,0 +1,28 @@
+{
+  "name": "struct.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "struct.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ]
+  },
+  "dependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0"
+  }
+}
