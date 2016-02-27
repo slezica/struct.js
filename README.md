@@ -1,3 +1,5 @@
+# Welcome
+
 `struct.js` is a military-grade validation library, with focus on fluent type
 definition and precise error reporting.
 
@@ -63,7 +65,9 @@ let invalidUser = {
 }
 
 validate(invalidUser, userStruct)
+```
 
+```javascript
 {
   name: {
     first: 'This should be of type String, not Boolean',
@@ -74,5 +78,103 @@ validate(invalidUser, userStruct)
   birth: 'This should be of type Date, not Number',
 
   flags: { '1': 'This should be of type Boolean, not String' }
+}
+```
+
+
+## Advanced Validators
+
+The recommended pattern for creating advanced `validators` is to use a `factory`,
+a function that given parameters returns a `validator`. For example, a more
+generic version of `equalsOne`:
+
+```javascript
+function equals(number) {
+  return (object) =>
+    (object === number) ? true : `Expected ${number}, not ${object}`
+}
+```
+
+`struct.js` alredy comes with some useful `factories`.
+
+
+#### optional
+
+`optional(struct)` allows an object to be `null` or `undefined`, validating
+it against `struct` if not.
+
+```javascript
+const struct = {
+  unimportant: optional(String)
+}
+
+validate({ unimportant: 'nothing' }, struct) // true
+validate({ unimportant: null }, struct)      // true
+validate({}, struct)                         // true
+```
+
+
+#### instanceOf
+
+`instanceOf(Class)` verifies an object is an insance of a `Class`.
+
+```javascript
+class X {}
+
+const struct = {
+  'x': instanceOf(X)
+}
+
+validate({ x: new X() }, struct) // true
+validate({ x: 'what?' }, struct)
+```
+
+```javascript
+{ x: 'This should be of type X, not String' }
+```
+
+
+#### oneOf
+
+`oneOf(...structs)` validates an object against many `structs`, returning `true`
+if any validation is successful, an array of error `descriptions` otherwise.
+
+```javascript
+const struct = {
+  secretCode: oneOf(String, Number)
+}
+
+validate({ secretCode: 123 }, struct) // true
+validate({ secretCode: null }, struct)
+```
+
+```javascript
+{
+  secretCode:  [
+    'This should be of type String, not null',
+    'This should be of type Number, not null'
+  ]
+}
+```
+
+
+#### allOf
+
+`allOf(...structs)` validates an object against many `structs`, returning `true`
+only if **all** validations are successful, an array of error `descriptions`
+otherwise.
+
+```javascript
+const struct = {
+  name: allOf(String, minLength(4))
+}
+
+validate({ name: 'John' }, struct) // true
+validate({ name: '!' }, struct)
+```
+
+```javascript
+{
+  name:  [ 'This should be have length >= 4, not 1' ]
 }
 ```
