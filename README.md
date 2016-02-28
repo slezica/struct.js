@@ -178,3 +178,23 @@ validate({ name: '!' }, struct)
   name:  [ 'This should be have length >= 4, not 1' ]
 }
 ```
+
+
+#### inEnum
+
+`inEnum(validValues)` ensures an object is found in an array of `validValues`.
+
+```javascript
+const struct = {
+  status: inEnum([ 'draft', 'sent', 'deleted' ])
+}
+
+validate({ status: 'draft' }, struct) // true
+validate({ status: 'other' }, struct)
+```
+
+```javascript
+{
+  status: 'This should be one of [draft,sent,deleted], not other'
+}
+```

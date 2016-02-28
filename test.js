@@ -1,4 +1,4 @@
-import { validate, instanceOf, oneOf, allOf } from './struct'
+import { validate, instanceOf, oneOf, allOf, inEnum } from './struct'
 
 
 class Thing {}
@@ -23,7 +23,9 @@ const userStruct = {
 
   thing: instanceOf(Thing),
   code: oneOf(String, Number),
-  longCode: allOf(String, lengthGT5)
+  longCode: allOf(String, lengthGT5),
+
+  status: inEnum([ 'a', 'b', 'c' ])
 }
 
 
@@ -39,16 +41,21 @@ let result = validate({
 
   thing: null,
   code: new Date(),
-  longCode: 'short'
+  longCode: 'short',
+
+  status: 1234
 }, userStruct);
+
+
+console.log(result);
 
 
 let struct = {
   secretCode: oneOf(String, Number)
 }
 
-console.log(validate({ secretCode: 123 }, struct))
-console.log(validate({ secretCode: null }, struct))
+// console.log(validate({ secretCode: 123 }, struct))
+// console.log(validate({ secretCode: null }, struct))
 
 class X {}
 
@@ -56,5 +63,13 @@ struct = {
   'x': instanceOf(X)
 }
 
-console.log(validate({ x: new X() }, struct))
-console.log(validate({ x: 'what?' }, struct))
+// console.log(validate({ x: new X() }, struct))
+// console.log(validate({ x: 'what?' }, struct))
+
+
+struct = {
+  status: inEnum([ 'draft', 'sent', 'deleted' ])
+}
+
+console.log(validate({ status: 'draft' }, struct))
+console.log(validate({ status: 'other' }, struct))

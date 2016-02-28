@@ -47,3 +47,11 @@ export function optional(struct) {
       ? true
       : validate(object, struct)
 }
+
+
+export function inEnum(validValues) {
+  return (object) =>
+    (validValues.some(value => object === value))
+      ? true
+      : `This should be one of [${validValues}], not ${object}`
+}
