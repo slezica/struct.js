@@ -1,10 +1,10 @@
 'use strict'
 
-import { typeOf } from './utils'
+import { typeOf, typeName } from './utils'
 
 
 export class StructWalker {
-  walk(object, struct) {
+  handle(object, struct) {
     if (struct === String || struct === Number || struct === Date || struct === Boolean) {
       return this.handleType(object, struct)
     }
@@ -19,6 +19,13 @@ export class StructWalker {
 
     } else if (structType === Function) {
       return this.handleFunction(object, struct)
+
+    } else {
+      return this.handleUnknown(object, struct)
     }
+  }
+
+  handleUnknown(object, struct) {
+    throw new Error(`Validator can't handle struct <${struct}> of type <${typeName(typeOf(struct))}>`)
   }
 }

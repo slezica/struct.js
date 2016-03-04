@@ -5,7 +5,7 @@ import { StructWalker } from './walker'
 
 
 export function validate(object, struct) {
-  return new Validator().walk(object, struct)
+  return new Validator().handle(object, struct)
 }
 
 
@@ -23,7 +23,7 @@ export class Validator extends StructWalker {
     let errors = {} // array-like object
 
     array.forEach((item, index) => {
-      let result = validate(item, innerType)
+      let result = this.handle(item, innerType)
       if (result !== true) errors[index] = result
     })
 
@@ -38,7 +38,7 @@ export class Validator extends StructWalker {
     let errors = {}
 
     Object.keys(object).forEach((key) => {
-      let result = validate(object[key], struct[key])
+      let result = this.handle(object[key], struct[key])
       if (result !== true) errors[key] = result
     })
 
