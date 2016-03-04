@@ -1,57 +1,48 @@
 'use strict'
 
 import { typeOf, typeName, isEmpty } from './utils'
+import { StructWalker } from './walker'
 
 
 export function validate(object, struct) {
-  let structType = typeOf(struct)
+  return new Validator().walk(object, struct)
+}
 
-  if (struct === String || struct === Number || struct === Date || struct === Boolean) {
-    return validateType(object, struct)
+
+export class Validator extends StructWalker {
+
+  handleType(object, expectedType) {
+    let actualType = typeOf(object)
+
+    return (actualType === expectedType)
+      ? true
+      : `This should be of type ${typeName(expectedType)}, not ${typeName(actualType)}`
   }
 
-  if (structType === Array) {
-    return validateItems(object, struct)
+  handleArray(array, [ innerType ]) {
+    let errors = {} // array-like object
 
-  } else if (structType === Object) {
-    return validateProperties(object, struct)
+    array.forEach((item, index) => {
+      let result = validate(item, innerType)
+      if (result !== true) errors[index] = result
+    })
 
-  } else if (structType === Function) {
-    return struct(object)
+    return isEmpty(errors) ? true : errors
   }
 
-}
+  handleFunction(object, func) {
+    return func(object)
+  }
 
+  handleObject(object, struct) {
+    let errors = {}
 
-function validateType(object, expectedType) {
-  let actualType = typeOf(object)
+    Object.keys(object).forEach((key) => {
+      let result = validate(object[key], struct[key])
+      if (result !== true) errors[key] = result
+    })
 
-  return (actualType === expectedType)
-    ? true
-    : `This should be of type ${typeName(expectedType)}, not ${typeName(actualType)}`
-}
+    return isEmpty(errors) ? true : errors
+  }
 
-
-function validateItems(array, typeArray) {
-  let innerType = typeArray[0]
-  let errors = {} // array-like object
-
-  array.forEach((item, index) => {
-    let result = validate(item, innerType)
-    if (result !== true) errors[index] = result
-  })
-
-  return isEmpty(errors) ? true : errors
-}
-
-
-function validateProperties(object, struct) {
-  let errors = {}
-
-  Object.keys(object).forEach((key) => {
-    let result = validate(object[key], struct[key])
-    if (result !== true) errors[key] = result
-  })
-
-  return isEmpty(errors) ? true : errors
 }

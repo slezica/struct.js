@@ -4,7 +4,8 @@
   "description": "",
   "main": "struct.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "jshint $(find struct -name '*.js')"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,14 @@
     "plugins": [
       "transform-decorators-legacy"
     ]
+  },
+  "jshintConfig": {
+    "asi": true,
+    "esversion": 6,
+    "laxbreak": true,
+    "globalstrict": true,
+    "-W041": false,
+    "node": true
   },
   "dependencies": {
     "babel-plugin-transform-decorators-legacy": "^1.3.4"

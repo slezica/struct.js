@@ -1,4 +1,5 @@
 'use strict'
+
 import { validate } from './validate'
 import { typeOf, typeName } from './utils'
 
@@ -23,7 +24,7 @@ export function allOf(...structs) {
       if (result !== true) errors.push(result)
     }
 
-    return (errors.length == 0)
+    return (errors.length === 0)
       ? true
       : errors
   }
@@ -43,7 +44,7 @@ export function oneOf(...structs) {
 
 export function optional(struct) {
   return (object) =>
-    (object == null)
+    (object === null)
       ? true
       : validate(object, struct)
 }

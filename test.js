@@ -1,3 +1,5 @@
+'use strict'
+
 import { validate, instanceOf, oneOf, allOf, inEnum } from './struct'
 
 
