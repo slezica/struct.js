@@ -14,7 +14,7 @@ export class Validator extends StructWalker {
   constructor(options) {
     super()
 
-    let defaults = {
+    const defaults = {
       strict: true
     }
 
@@ -30,7 +30,7 @@ export class Validator extends StructWalker {
   }
 
   handleArray(array, [ innerType ]) {
-    if (array == null) return `This should be an Array, not ${typeName(typeOf(array))}`
+    if (array == null) return `This should be an Array, not ${array}`
 
     let errors = {} // sparse array-like object
 
@@ -47,7 +47,7 @@ export class Validator extends StructWalker {
   }
 
   handleObject(object, struct) {
-    if (object == null) return `This should be an Object, not ${typeName(typeOf(object))}`
+    if (object == null) return `This should be an Object, not ${object}`
 
     let errors = {}
 
