@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function lint {
+  jshint struct test test.js
+}
+
+function test {
+  mocha --compilers js:babel-register
+}
+
+"$@"

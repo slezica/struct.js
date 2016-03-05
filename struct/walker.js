@@ -6,6 +6,10 @@ import { typeOf, typeName } from './utils'
 export class StructWalker {
 
   handle(object, struct) {
+    if (struct == null) {
+      throw new Error(`Expected a struct as 2nd parameter, got ${struct}`)
+    }
+
     if (struct === String || struct === Number || struct === Date || struct === Boolean) {
       return this.handleType(object, struct)
     }
