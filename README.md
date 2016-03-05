@@ -26,7 +26,7 @@ A `struct` is an object where each key is:
 - A built-in type (`String`, `Number`, `Boolean`, or `Date`)
 - A `validator` function (`equalsOne`)
 - An array with a `struct` as its only element (`[ String ]`)
-- An object with `struct` as its values (`{ name: String }`)
+- An object with a `struct` as its values (`{ name: String }`)
 
 
 ```javascript
