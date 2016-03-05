@@ -45,7 +45,7 @@ const userStruct = {
 
 ## Validate
 
-`struct.validate` is the generic `validator`. It will verify that an object
+`validate()` is the generic `validator`. It will verify that an object
 matches a `struct`, and return either `true` or a `description`.
 
 ```javascript
@@ -100,7 +100,8 @@ function equals(number) {
 }
 ```
 
-`struct.js` alredy comes with some useful `factories`.
+`struct.js` alredy comes with some useful `factories`. `import` them from the
+module.
 
 
 #### optional
