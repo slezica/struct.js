@@ -56,10 +56,12 @@ export class Validator extends StructWalker {
       if (result !== true) errors[key] = result
     })
 
-    Object.keys(object).forEach((key) => {
-      if (this.options.strict && ! struct.hasOwnProperty(key))
-        errors[key] = "This property should not be present"
-    })
+    if (this.options.strict) {
+      Object.keys(object).forEach((key) => {
+        if (struct[key] == null)
+          errors[key] = "This property should not be present"
+      })
+    }
 
     return isEmpty(errors) ? true : errors
   }

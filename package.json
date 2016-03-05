@@ -4,8 +4,7 @@
   "description": "",
   "main": "struct.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "jshint $(find struct -name '*.js')"
+    "test": "echo 'Run ./run tests'"
   },
   "keywords": [],
   "author": "",
