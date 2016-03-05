@@ -4,6 +4,7 @@ import { typeOf, typeName } from './utils'
 
 
 export class StructWalker {
+
   handle(object, struct) {
     if (struct === String || struct === Number || struct === Date || struct === Boolean) {
       return this.handleType(object, struct)

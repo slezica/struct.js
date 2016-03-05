@@ -7,9 +7,9 @@ class Thing {}
 
 
 function lengthGT5(string) {
-  return (string.length > 5)
+  return (string && string.length > 5)
     ? true
-    : `This string's length should be greater than 5, not ${string.length}`
+    : `This should be a String of length > 5, not "${string}"`
 }
 
 
@@ -24,6 +24,7 @@ const userStruct = {
   flags: [ Boolean ],
 
   thing: instanceOf(Thing),
+
   code: oneOf(String, Number),
   longCode: allOf(String, lengthGT5),
 
@@ -31,7 +32,7 @@ const userStruct = {
 }
 
 
-let result = validate({
+let example = {
   name: {
     first: false,
     last: 1234
@@ -45,8 +46,12 @@ let result = validate({
   code: new Date(),
   longCode: 'short',
 
-  status: 1234
-}, userStruct);
+  status: 1234,
+
+  hahaha: true
+}
+
+let result = validate(example, userStruct, { strict: false });
 
 
 console.log(result);

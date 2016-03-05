@@ -4,12 +4,22 @@ import { typeOf, typeName, isEmpty } from './utils'
 import { StructWalker } from './walker'
 
 
-export function validate(object, struct) {
-  return new Validator().handle(object, struct)
+export function validate(object, struct, options) {
+  return new Validator(options).handle(object, struct)
 }
 
 
 export class Validator extends StructWalker {
+
+  constructor(options) {
+    super()
+
+    let defaults = {
+      strict: true
+    }
+
+    this.options = Object.assign(defaults, options)
+  }
 
   handleType(object, expectedType) {
     let actualType = typeOf(object)
@@ -20,7 +30,9 @@ export class Validator extends StructWalker {
   }
 
   handleArray(array, [ innerType ]) {
-    let errors = {} // array-like object
+    if (array == null) return `This should be an Array, not ${typeName(typeOf(array))}`
+
+    let errors = {} // sparse array-like object
 
     array.forEach((item, index) => {
       let result = this.handle(item, innerType)
@@ -35,11 +47,18 @@ export class Validator extends StructWalker {
   }
 
   handleObject(object, struct) {
+    if (object == null) return `This should be an Object, not ${typeName(typeOf(object))}`
+
     let errors = {}
 
-    Object.keys(object).forEach((key) => {
+    Object.keys(struct).forEach((key) => {
       let result = this.handle(object[key], struct[key])
       if (result !== true) errors[key] = result
+    })
+
+    Object.keys(object).forEach((key) => {
+      if (this.options.strict && ! struct.hasOwnProperty(key))
+        errors[key] = "This property should not be present"
     })
 
     return isEmpty(errors) ? true : errors
