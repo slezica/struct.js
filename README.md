@@ -3,7 +3,6 @@
 `struct.js` is a military-grade validation library, with focus on fluent type
 definition and precise error reporting.
 
-
 ## Terminology
 
 A `validator` is a `Function` that returns either exactly `true` or the precise
@@ -46,6 +45,8 @@ const userStruct = {
 matches a `struct`, and return either `true` or a `description`.
 
 ```javascript
+import { validate } from 'struct-js'
+
 validate("hello", String) // true
 validate(123, String)     // "This should be of type String, not Number"
 ```
@@ -196,5 +197,27 @@ validate({ status: 'other' }, struct)
 ```javascript
 {
   status: 'This should be one of [draft,sent,deleted], not other'
+}
+```
+
+
+## Usage patterns
+
+`struct.js` can be extremely effective at controlling code complexity and ensuring
+correctness. Here are some patterns to explore.
+
+### Named structs
+
+Assign names to `structs`, and compose them into complex type definitions:
+
+```javascript
+const userStruct = {
+  name: String,
+  age : Number
+}
+
+const groupStruct = {
+  leader : userStruct,
+  members: [ userStruct ]
 }
 ```
