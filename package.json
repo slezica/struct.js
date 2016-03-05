@@ -1,8 +1,8 @@
 {
-  "name": "struct.js",
+  "name": "struct-js",
   "version": "1.0.0",
   "description": "",
-  "main": "struct.js",
+  "main": "dist",
   "scripts": {
     "test": "echo 'Run ./run tests'"
   },
@@ -34,6 +34,7 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.6.5",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.6.5",

@@ -1,7 +1,7 @@
 'use strict'
 
 import { assert } from 'chai'
-import { validate } from '../struct'
+import { validate } from '../src'
 
 describe('Validator', function() {
 
