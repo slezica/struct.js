@@ -3,6 +3,10 @@
 `struct.js` is a military-grade validation library, with focus on fluent type
 definition and precise error reporting.
 
+```
+npm install struct-js
+```
+
 ## Terminology
 
 A `validator` is a `Function` that returns either exactly `true` or the precise
