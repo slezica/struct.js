@@ -10,7 +10,7 @@ export class StructWalker {
       throw new Error(`Expected a struct as 2nd parameter, got ${struct}`)
     }
 
-    if (struct === String || struct === Number || struct === Date || struct === Boolean) {
+    if (struct === String || struct === Number || struct === Date || struct === Boolean || struct === Object) {
       return this.handleType(object, struct)
     }
 

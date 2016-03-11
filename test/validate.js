@@ -35,6 +35,14 @@ describe('Validator', function() {
     assert.typeOf(validate(undefined, Date), 'string')
   })
 
+  it("should validate generic Objects", function() {
+    assert.strictEqual(validate({}, Object), true)
+    assert.typeOf(validate(new Date(), Object), 'string')
+    assert.typeOf(validate(123, Object), 'string')
+    assert.typeOf(validate(null, Object), 'string')
+    assert.typeOf(validate(undefined, Object), 'string')
+  })
+
 
   // Containers:
 
