@@ -20,3 +20,12 @@ export function typeName(type) {
 export function isEmpty(object) {
   return (Object.keys(object).length === 0)
 }
+
+
+export class ValidationError {
+  constructor(details) {
+    this.message = "Validation failed: " + JSON.stringify(details)
+    this.details = details
+    this.stack   = new Error().stack
+  }
+}

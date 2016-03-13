@@ -1,11 +1,23 @@
 'use strict'
 
-import { typeOf, typeName, isEmpty } from './utils'
+import { typeOf, typeName, isEmpty, ValidationError } from './utils'
 import { StructWalker } from './walker'
 
 
 export function validate(object, struct, options) {
   return new Validator(options).handle(object, struct)
+}
+
+export function isValid(object, struct, options) {
+  return (validate(object, struct, options) === true)
+}
+
+export function requireValid(object, struct, options) {
+  let result = validate(object, struct, options)
+
+  if (result !== true) {
+    throw new ValidationError(result)
+  }
 }
 
 

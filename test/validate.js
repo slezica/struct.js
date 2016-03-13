@@ -1,9 +1,9 @@
 'use strict'
 
 import { assert } from 'chai'
-import { validate } from '../src'
+import { validate, isValid, requireValid, ValidationError } from '../src'
 
-describe('Validator', function() {
+describe('validate', function() {
 
   // Primitive types:
 
@@ -119,5 +119,19 @@ describe('Validator', function() {
 
     assert.strictEqual(validate({}, alwaysSucceed), true)
     assert.strictEqual(validate({ foo: 1 }, alwaysSucceed), true)
+  })
+})
+
+
+describe('isValid', function() {
+  it("should return false, not details", function() {
+    assert.strictEqual(isValid(1, String), false)
+  })
+})
+
+
+describe('requireValid', function() {
+  it("should throw a ValidationError", function() {
+    assert.throws(() => requireValid(1, String), ValidationError)
   })
 })

@@ -45,7 +45,7 @@ const userStruct = {
 
 ## Validate
 
-`validate()` is the generic `validator`. It will verify that an object
+`validate(object, struct)` is the generic `validator`. It will verify that an object
 matches a `struct`, and return either `true` or a `description`.
 
 ```javascript
@@ -85,6 +85,24 @@ validate(invalidUser, userStruct)
   flags: { '1': 'This should be of type Boolean, not String' }
 }
 ```
+
+`validate()` has two cousins:
+
+- `isValid()` returns `true` or `false`:
+
+        isValid('string', String) // true
+        isValid(1, String)        // false
+
+- `requireValid()` throws a `ValidationError` if not `true`:
+
+        try {
+          requireValid(1, String)
+
+        } catch(ve) {
+          console.log(ve.details) // the validation result
+          console.log(ve.message)
+          console.log(ve.stack)
+        }
 
 
 ## Advanced Validators
