@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.typeOf = typeOf;
 exports.typeName = typeName;
 exports.isEmpty = isEmpty;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function typeOf(x) {
   // typeOf(undefined)   is undefined
   // typeOf(null)        is null
@@ -24,3 +27,11 @@ function typeName(type) {
 function isEmpty(object) {
   return Object.keys(object).length === 0;
 }
+
+var ValidationError = exports.ValidationError = function ValidationError(details) {
+  _classCallCheck(this, ValidationError);
+
+  this.message = "Validation failed: " + JSON.stringify(details);
+  this.details = details;
+  this.stack = new Error().stack;
+};

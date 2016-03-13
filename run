@@ -12,4 +12,8 @@ function tests {
   mocha --compilers js:babel-register
 }
 
+function publish {
+  ./run compile && ./run lint && npm publish
+}
+
 "$@"

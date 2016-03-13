@@ -20,7 +20,7 @@ var StructWalker = exports.StructWalker = function () {
     key: 'handle',
     value: function handle(object, struct) {
       if (struct == null) {
-        throw new Error('Expected a struct as 2nd parameter, got ' + struct);
+        throw new _utils.ValidationError('Expected a struct as 2nd parameter, got ' + struct);
       }
 
       if (struct === String || struct === Number || struct === Date || struct === Boolean || struct === Object) {
@@ -42,7 +42,7 @@ var StructWalker = exports.StructWalker = function () {
   }, {
     key: 'handleUnknown',
     value: function handleUnknown(object, struct) {
-      throw new Error('Validator can\'t handle struct <' + struct + '> of type <' + (0, _utils.typeName)((0, _utils.typeOf)(struct)) + '>');
+      throw new _utils.ValidationError('Validator can\'t handle struct <' + struct + '> of type <' + (0, _utils.typeName)((0, _utils.typeOf)(struct)) + '>');
     }
   }]);
 

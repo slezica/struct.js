@@ -10,6 +10,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 exports.validate = validate;
+exports.isValid = isValid;
+exports.requireValid = requireValid;
 
 var _utils = require('./utils');
 
@@ -23,6 +25,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function validate(object, struct, options) {
   return new Validator(options).handle(object, struct);
+}
+
+function isValid(object, struct, options) {
+  return validate(object, struct, options) === true;
+}
+
+function requireValid(object, struct, options) {
+  var result = validate(object, struct, options);
+
+  if (result !== true) {
+    throw new _utils.ValidationError(result);
+  }
 }
 
 var Validator = exports.Validator = function (_StructWalker) {
