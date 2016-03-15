@@ -44,7 +44,7 @@ export function oneOf(...structs) {
 
 export function optional(struct) {
   return (object) =>
-    (object === null)
+    (object == null)
       ? true
       : validate(object, struct)
 }
