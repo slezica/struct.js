@@ -77,7 +77,7 @@ function oneOf() {
 
 function optional(struct) {
   return function (object) {
-    return object === null ? true : (0, _validate.validate)(object, struct);
+    return object == null ? true : (0, _validate.validate)(object, struct);
   };
 }
 
