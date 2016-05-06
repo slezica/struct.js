@@ -3,11 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 exports.instanceOf = instanceOf;
 exports.allOf = allOf;
 exports.oneOf = oneOf;
 exports.optional = optional;
 exports.inEnum = inEnum;
+exports.mapOf = mapOf;
 
 var _validate = require('./validate');
 
@@ -86,5 +90,22 @@ function inEnum(validValues) {
     return validValues.some(function (value) {
       return object === value;
     }) ? true : 'This should be one of [' + validValues + '], not ' + object;
+  };
+}
+
+function mapOf(struct) {
+  return function (object) {
+    if ((typeof object === 'undefined' ? 'undefined' : _typeof(object)) !== 'object') {
+      return 'This should be a map-like Object, not ' + object;
+    }
+
+    var errors = {};
+
+    Object.keys(object).forEach(function (key) {
+      var result = (0, _validate.validate)(object[key], struct);
+      if (result !== true) errors[key] = result;
+    });
+
+    return Object.keys(errors).length === 0 ? true : errors;
   };
 }

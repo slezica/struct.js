@@ -31,7 +31,7 @@ function isEmpty(object) {
 var ValidationError = exports.ValidationError = function ValidationError(details) {
   _classCallCheck(this, ValidationError);
 
-  this.message = "Validation failed: " + JSON.stringify(details);
+  this.message = "Struct validation failed";
   this.details = details;
-  this.stack = new Error().stack;
+  this.stack = new Error().stack + '\n' + JSON.stringify(details, null, 2);
 };
