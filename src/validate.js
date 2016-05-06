@@ -42,7 +42,7 @@ export class Validator extends StructWalker {
   }
 
   handleArray(array, [ innerType ]) {
-    if (array == null) return `This should be an Array, not ${array}`
+    if (typeOf(array) !== Array) return `This should be an Array, not ${array}`
 
     let errors = {} // sparse array-like object
 

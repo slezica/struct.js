@@ -26,6 +26,6 @@ export class ValidationError {
   constructor(details) {
     this.message = "Struct validation failed"
     this.details = details
-    this.stack   = new Error().stack + '\n' + JSON.stringify(details, null, 2)
+    this.stack   = this.message + '\nat ' + new Error().stack.slice(1) + '\nReason: ' + JSON.stringify(details, null, 2)
   }
 }

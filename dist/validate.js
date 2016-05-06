@@ -71,7 +71,7 @@ var Validator = exports.Validator = function (_StructWalker) {
 
       var innerType = _ref2[0];
 
-      if (array == null) return 'This should be an Array, not ' + array;
+      if ((0, _utils.typeOf)(array) !== Array) return 'This should be an Array, not ' + array;
 
       var errors = {}; // sparse array-like object
 
