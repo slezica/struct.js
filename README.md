@@ -224,6 +224,29 @@ validate({ status: 'other' }, struct)
 ```
 
 
+#### mapOf
+
+`mapOf(struct)` ensures an object is a mapping of keys to `struct` values, returning
+`true` if every own property passes validation, or a map of keys to errors
+if not.
+
+```javascript
+const struct = mapOf({ name: String })
+
+validate({ bob: { name: "Bob" } }, struct) // true
+validate({ bob: { foo: 1 } }, struct)
+```
+
+```javascript
+{
+  "bob": {
+    "name": "This should be of type String, not undefined",
+    "foo": "This property should not be present"
+  }
+}
+```
+
+
 ## Usage patterns
 
 `struct.js` can be extremely effective at controlling code complexity and ensuring
