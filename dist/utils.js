@@ -33,5 +33,5 @@ var ValidationError = exports.ValidationError = function ValidationError(details
 
   this.message = "Struct validation failed";
   this.details = details;
-  this.stack = new Error().stack + '\n' + JSON.stringify(details, null, 2);
+  this.stack = this.message + '\n' + new Error().stack.split('\n').slice(1).join('\n') + '\n' + 'Reason: ' + JSON.stringify(details, null, 2);
 };
