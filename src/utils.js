@@ -24,8 +24,8 @@ export function isEmpty(object) {
 
 export class ValidationError {
   constructor(details) {
-    this.message = "Validation failed: " + JSON.stringify(details)
+    this.message = "Struct validation failed"
     this.details = details
-    this.stack   = new Error().stack
+    this.stack   = new Error().stack + '\n' + JSON.stringify(details, null, 2)
   }
 }

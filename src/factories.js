@@ -56,3 +56,23 @@ export function inEnum(validValues) {
       ? true
       : `This should be one of [${validValues}], not ${object}`
 }
+
+
+export function mapOf(struct) {
+  return (object) => {
+    if (typeof object !== 'object') {
+      return `This should be a map-like Object, not ${object}`
+    }
+
+    let errors = {}
+
+    Object.keys(object).forEach(key => {
+      let result = validate(object[key], struct)
+      if (result !== true) errors[key] = result
+    })
+
+    return (Object.keys(errors).length === 0)
+      ? true
+      : errors
+  }
+}
